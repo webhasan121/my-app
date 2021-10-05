@@ -1,23 +1,25 @@
-import "./App.css";
-import logo from "./logo.svg";
+import { useState } from "react";
 
 function App() {
+  const [todo, setTodo] = useState("");
+  const [warning, setWarning] = useState(null);
+
+  const handleInput = (e) => {
+    const inputValue = e.target.value;
+    const updateWarning = inputValue.includes('.js') ? 'You need js skill' : null
+    
+    setTodo(inputValue);
+    setWarning(updateWarning)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload hasan.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <p>{todo}</p>
+      <p>
+        <textarea name="todo" value={todo} onChange={handleInput}></textarea>
+      </p>
+      <hr />
+      <h2>{warning || 'Good choice!'}</h2>
     </div>
   );
 }
